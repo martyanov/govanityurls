@@ -2,71 +2,17 @@
 
 Go Vanity URLs is a simple Go server that allows you
 to set custom import paths for your Go packages.
-It also can run on Google App Engine.
 
 ## Quickstart
 
 Install and run the binary:
 
 ```
-$ go get -u github.com/GoogleCloudPlatform/govanityurls
+$ go install github.com/martyanov/govanityurls@latest
 $ # update vanity.yaml
 $ govanityurls
 $ # open http://localhost:8080
 ```
-
-
-### Google App Engine
-
-Install [gcloud](https://cloud.google.com/sdk/downloads) and install Go App Engine component:
-
-```
-$ gcloud components install app-engine-go
-```
-
-Setup a [custom domain](https://cloud.google.com/appengine/docs/standard/python/using-custom-domains-and-ssl) for your app.
-
-Get the application:
-```
-git clone https://github.com/GoogleCloudPlatform/govanityurls
-cd govanityurls
-```
-
-Edit `vanity.yaml` to add any number of git repos. E.g., `customdomain.com/portmidi` will
-serve the [https://github.com/rakyll/portmidi](https://github.com/rakyll/portmidi) repo.
-
-```
-paths:
-  /portmidi:
-    repo: https://github.com/rakyll/portmidi
-```
-
-You can add as many rules as you wish.
-
-Deploy the app:
-
-```
-$ gcloud app deploy
-```
-
-That's it! You can use `go get` to get the package from your custom domain.
-
-```
-$ go get customdomain.com/portmidi
-```
-
-### Running in other environments
-
-You can also deploy this as an App Engine Flexible app by changing the
-`app.yaml` file:
-
-```
-runtime: go
-env: flex
-```
-
-This project is a normal Go HTTP server, so you can also incorporate the
-handler into larger Go servers.
 
 ## Configuration File
 
@@ -97,7 +43,7 @@ paths:
     <tr>
       <th scope="row"><code>host</code></th>
       <td>optional</td>
-      <td>Host name to use in meta tags.  If omitted, uses the App Engine default version host or the Host header on non-App Engine Standard environments.  You can use this option to fix the host when using this service behind a reverse proxy or a <a href="https://cloud.google.com/appengine/docs/standard/go/how-requests-are-routed#routing_with_a_dispatch_file">custom dispatch file</a>.</td>
+      <td>Host name to use in meta tags.   You can use this option to fix the host when using this service behind a reverse proxy.</td>
     </tr>
     <tr>
       <th scope="row"><code>paths</code></th>
@@ -131,7 +77,7 @@ paths:
     <tr>
       <th scope="row"><code>vcs</code></th>
       <td>required if ambiguous</td>
-      <td>If the version control system cannot be inferred (e.g. for Bitbucket or a custom domain), then this specifies the version control system as it would appear in <a href="https://golang.org/cmd/go/#hdr-Remote_import_paths"><code>go-import</code> meta tag</a>.  This can be one of <code>git</code>, <code>hg</code>, <code>svn</code>, or <code>bzr</code>.</td>
+      <td>If the version control system cannot be inferred, then this specifies the version control system as it would appear in <a href="https://golang.org/cmd/go/#hdr-Remote_import_paths"><code>go-import</code> meta tag</a>.  This can be one of <code>git</code>, <code>hg</code>, <code>svn</code>, or <code>bzr</code>.</td>
     </tr>
   </tbody>
 </table>
