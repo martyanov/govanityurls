@@ -129,7 +129,7 @@ func (h *handler) serveIndex(w http.ResponseWriter, r *http.Request) {
 	host := h.Host(r)
 	handlers := make([]string, len(h.paths))
 	for i, h := range h.paths {
-		handlers[i] = host + h.path
+		handlers[i] = h.path
 	}
 	if err := indexTmpl.Execute(w, struct {
 		Host     string
@@ -154,7 +154,7 @@ var indexTmpl = template.Must(template.New("index").Parse(`<!DOCTYPE html>
 <html>
 <h1>{{.Host}}</h1>
 <ul>
-{{range .Handlers}}<li><a href="https://pkg.go.dev/{{.}}">{{.}}</a></li>{{end}}
+{{range .Handlers}}<li><a href="{{.}}">{{.}}</a></li>{{end}}
 </ul>
 </html>
 `))
@@ -165,10 +165,10 @@ var vanityTmpl = template.Must(template.New("vanity").Parse(`<!DOCTYPE html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="go-import" content="{{.Import}} {{.VCS}} {{.Repo}}">
 <meta name="go-source" content="{{.Import}} {{.Display}}">
-<meta http-equiv="refresh" content="0; url=https://pkg.go.dev/{{.Import}}/{{.Subpath}}">
+<meta http-equiv="refresh" content="5; url={{.Repo}}">
 </head>
 <body>
-Nothing to see here; <a href="https://pkg.go.dev/{{.Import}}/{{.Subpath}}">see the package on pkg.go.dev</a>.
+Nothing to see here, <a href="{{.Repo}}">see the package repository</a>.
 </body>
 </html>`))
 
