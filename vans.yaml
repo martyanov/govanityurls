@@ -1,5 +1,5 @@
 host: rakyll.pizza
-
+cache_max_age: 60
 paths:
   /portmidi:
     repo: https://github.com/rakyll/portmidi
