@@ -95,6 +95,10 @@ func newHandler(config []byte) (*handler, error) {
 	return h, nil
 }
 
+func defaultHost(r *http.Request) string {
+	return r.Host
+}
+
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	current := r.URL.Path
 	pc, subpath := h.paths.find(current)

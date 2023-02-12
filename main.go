@@ -16,41 +16,33 @@
 package main
 
 import (
+	"flag"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
+)
+
+var (
+	address    = flag.String("address", "localhost:8080", "address to listen on")
+	configPath = flag.String("config", "vans.yaml", "path to config file")
 )
 
 func main() {
-	var configPath string
-	switch len(os.Args) {
-	case 1:
-		configPath = "vans.yaml"
-	case 2:
-		configPath = os.Args[1]
-	default:
-		log.Fatal("usage: govans [CONFIG]")
-	}
-	vanity, err := ioutil.ReadFile(configPath)
+	flag.Parse()
+
+	vanity, err := ioutil.ReadFile(*configPath)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	h, err := newHandler(vanity)
 	if err != nil {
 		log.Fatal(err)
 	}
 	http.Handle("/", h)
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
+	server := &http.Server{Addr: *address}
+	if err := server.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
-}
-
-func defaultHost(r *http.Request) string {
-	return r.Host
 }
