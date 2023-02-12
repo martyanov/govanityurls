@@ -23,5 +23,6 @@ jobs:
           pre_command: export CGO_ENABLED=0
           build_flags: -trimpath
           ldflags: -s -w
+          extra_files: LICENSE README.md
           sha256sum: true
           md5sum: false
