@@ -1,3 +1,4 @@
+// Copyright 2023 Andrey Martyanov. All Rights Reserved.
 // Copyright 2017 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,11 +26,11 @@ func main() {
 	var configPath string
 	switch len(os.Args) {
 	case 1:
-		configPath = "vanity.yaml"
+		configPath = "vans.yaml"
 	case 2:
 		configPath = os.Args[1]
 	default:
-		log.Fatal("usage: govanityurls [CONFIG]")
+		log.Fatal("usage: govans [CONFIG]")
 	}
 	vanity, err := ioutil.ReadFile(configPath)
 	if err != nil {

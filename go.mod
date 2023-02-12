@@ -1,4 +1,4 @@
-module github.com/martyanov/govanityurls
+module github.com/martyanov/govans
 
 go 1.18
 

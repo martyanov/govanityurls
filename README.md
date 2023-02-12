@@ -1,17 +1,23 @@
-# Go Vanity URLs
+# govans
 
-Go Vanity URLs is a simple Go server that allows you
-to set custom import paths for your Go packages.
+A simple Go server that allows you to set custom import paths for your Go packages.
 
 ## Quickstart
 
-Install and run the binary:
+Install:
 
 ```
-$ go install github.com/martyanov/govanityurls@latest
-$ # update vanity.yaml
-$ govanityurls
-$ # open http://localhost:8080
+go install github.com/martyanov/govans@latest
+```
+
+Configure and run the binary:
+
+```
+# update vans.yaml
+
+govans
+
+# open http://localhost:8080
 ```
 
 ## Configuration File
