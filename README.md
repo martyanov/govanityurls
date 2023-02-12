@@ -20,6 +20,21 @@ govans
 # open http://localhost:8080
 ```
 
+## Command line flags
+
+```
+govans -h
+Usage of govans:
+  -address string
+        address to listen on (default "localhost:8080")
+  -config string
+        path to config file (default "vans.yaml")
+  -tls-cert string
+        path to TLS certificate file
+  -tls-key string
+        path to TLS key file
+```
+
 ## Configuration File
 
 ```
