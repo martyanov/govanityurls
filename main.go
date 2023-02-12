@@ -23,8 +23,10 @@ import (
 )
 
 var (
-	address    = flag.String("address", "localhost:8080", "address to listen on")
-	configPath = flag.String("config", "vans.yaml", "path to config file")
+	address     = flag.String("address", "localhost:8080", "address to listen on")
+	configPath  = flag.String("config", "vans.yaml", "path to config file")
+	tlsCertPath = flag.String("tls-cert", "", "path to TLS certificate file")
+	tlsKeyPath  = flag.String("tls-key", "", "path to TLS key file")
 )
 
 func main() {
@@ -42,7 +44,12 @@ func main() {
 	http.Handle("/", h)
 
 	server := &http.Server{Addr: *address}
-	if err := server.ListenAndServe(); err != nil {
+	if *tlsCertPath != "" && *tlsKeyPath != "" {
+		err = server.ListenAndServeTLS(*tlsCertPath, *tlsKeyPath)
+	} else {
+		err = server.ListenAndServe()
+	}
+	if err != nil {
 		log.Fatal(err)
 	}
 }
